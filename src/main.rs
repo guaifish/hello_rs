@@ -1,27 +1,21 @@
-#[allow(dead_code)]
-#[derive(Default, Debug)]
-struct SomeOptions {
-    foo: i32,
-    bar: f32,
-}
-
-
-#[allow(dead_code)]
-#[derive(Debug)]
-enum Kind {
-    A,
-    B,
-    C,
-}
-
-impl Default for Kind {
-    fn default() -> Self { Kind::A }
-}
-
-
 fn main() {
-    let options: SomeOptions = Default::default();
-    println!("{:?}", options);
-    let a: Kind = Default::default();
-    println!("{:?}", a);
+    let a1 = - 1;
+    let a2 = - &1;
+    println!("{}", a1);
+    println!("{}", a2);
+
+    let a3 = 1 + 2;
+    let a4 = 1 + &2;
+    let a5 = &1 + 2;
+    let a6 = &1 + &2;
+    println!("{}", a3);
+    println!("{}", a4);
+    println!("{}", a5);
+    println!("{}", a6);
+
+    let mut a7 = 0;
+    a7 += 1;
+    println!("{}", a7);
+    a7 += &1;
+    println!("{}", a7);
 }
