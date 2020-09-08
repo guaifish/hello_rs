@@ -1,21 +1,17 @@
+#![feature(option_result_contains)]
+
 fn main() {
-    let a1 = - 1;
-    let a2 = - &1;
-    println!("{}", a1);
-    println!("{}", a2);
+    let mut x: Option<u32> = Some(2);
+    assert_eq!(x.is_some(), true);
+    assert_eq!(x.contains(&2), true);
+    assert_eq!(x.as_ref(), Some(&2));
+    if let Some(v) = x.as_mut() {
+        *v = 42;
+    }
+    assert_eq!(x, Some(42));
+    x = Some(11);
+    assert_eq!(x, Some(11));
 
-    let a3 = 1 + 2;
-    let a4 = 1 + &2;
-    let a5 = &1 + 2;
-    let a6 = &1 + &2;
-    println!("{}", a3);
-    println!("{}", a4);
-    println!("{}", a5);
-    println!("{}", a6);
-
-    let mut a7 = 0;
-    a7 += 1;
-    println!("{}", a7);
-    a7 += &1;
-    println!("{}", a7);
+    let x: Option<u32> = None;
+    assert_eq!(x.is_some(), false);
 }
