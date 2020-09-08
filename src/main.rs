@@ -1,9 +1,27 @@
-#[macro_use] extern crate prettytable;
+#[allow(dead_code)]
+#[derive(Default, Debug)]
+struct SomeOptions {
+    foo: i32,
+    bar: f32,
+}
+
+
+#[allow(dead_code)]
+#[derive(Debug)]
+enum Kind {
+    A,
+    B,
+    C,
+}
+
+impl Default for Kind {
+    fn default() -> Self { Kind::A }
+}
+
 
 fn main() {
-    let table = table!(["ABC", "DEFG", "HIJKLMN"],
-                       ["foobar", "bar", "foo"],
-                       ["foobar2", "bar2", "foo2"]);
-
-    table.printstd();
+    let options: SomeOptions = Default::default();
+    println!("{:?}", options);
+    let a: Kind = Default::default();
+    println!("{:?}", a);
 }
