@@ -1,17 +1,18 @@
-#![feature(option_result_contains)]
+#[macro_use]
+extern crate derive_new;
+
+use displaydoc::Display;
+
+/// p({x:?}, {y:?})
+#[derive(new, Display)]
+struct Point {
+    #[new(value = "1")]
+    x: i32,
+    #[new(default)]
+    y: i32,
+}
 
 fn main() {
-    let mut x: Option<u32> = Some(2);
-    assert_eq!(x.is_some(), true);
-    assert_eq!(x.contains(&2), true);
-    assert_eq!(x.as_ref(), Some(&2));
-    if let Some(v) = x.as_mut() {
-        *v = 42;
-    }
-    assert_eq!(x, Some(42));
-    x = Some(11);
-    assert_eq!(x, Some(11));
-
-    let x: Option<u32> = None;
-    assert_eq!(x.is_some(), false);
+    let p = Point::new();
+    println!("{}", p);
 }

@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
+[dependencies]
+derive-new = "0.5.8"
+displaydoc = "0.1.7"
+
