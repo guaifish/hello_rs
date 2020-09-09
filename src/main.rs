@@ -1,7 +1,8 @@
-use hello::make_answer;
+use hello::AnswerFn;
 
-make_answer!();
+#[derive(AnswerFn)]
+struct Struct;
 
 fn main() {
-    println!("{}", answer());
+    assert_eq!(42, answer());
 }
