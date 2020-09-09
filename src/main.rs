@@ -1,21 +1,8 @@
-// X in the macro namespace
-macro_rules! X {
-    () => {};
-}
-
-// X in the type namespace
-struct X {}
-
-// X in the value namespace
-const X: () = ();
+use hello::Task;
 
 fn main() {
-    // unambiguously the macro X
-    X!();
+    let mut task = Task::new(1);
+    println!("{}", task.index);
 
-    // unambiguously the type X
-    let _: X;
-
-    // unambiguously the value X
-    let _ = X;
+    task.index += 1;
 }
