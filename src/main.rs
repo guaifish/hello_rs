@@ -1,27 +1,66 @@
-use hello::show_streams;
+#![allow(dead_code)]
+#[allow(unused_macros)]
+macro_rules! require_multiple_of_eight {
+    ($e:expr) => {
+        let _: $crate::MultipleOfEight<[(); $e % 8]>;
+    };
+}
 
-#[show_streams]
-fn invoke1() {}
-// out: attr: ""
-// out: item: "fn invoke1() { }"
+type MultipleOfEight<T> = <<T as Array>::Marker as TotalSizeIsMultipleOfEightBits>::Check;
 
-// Example: Attribute with input
-#[show_streams(bar)]
-fn invoke2() {}
-// out: attr: "bar"
-// out: item: "fn invoke2() {}"
+enum ZeroMod8 {}
+enum OneMod8 {}
+enum TwoMod8 {}
+enum ThreeMod8 {}
+enum FourMod8 {}
+enum FiveMod8 {}
+enum SixMod8 {}
+enum SevenMod8 {}
 
-// Example: Multiple tokens in the input
-#[show_streams(multiple => tokens)]
-fn invoke3() {}
-// out: attr: "multiple => tokens"
-// out: item: "fn invoke3() {}"
+trait Array {
+    type Marker;
+}
 
-// Example:
-#[show_streams { delimiters }]
-fn invoke4() {}
-// out: attr: "delimiters"
-// out: item: "fn invoke4() {}"
+impl Array for [(); 0] {
+    type Marker = ZeroMod8;
+}
+
+impl Array for [(); 1] {
+    type Marker = OneMod8;
+}
+
+impl Array for [(); 2] {
+    type Marker = TwoMod8;
+}
+
+impl Array for [(); 3] {
+    type Marker = ThreeMod8;
+}
+
+impl Array for [(); 4] {
+    type Marker = FourMod8;
+}
+
+impl Array for [(); 5] {
+    type Marker = FiveMod8;
+}
+
+impl Array for [(); 6] {
+    type Marker = SixMod8;
+}
+
+impl Array for [(); 7] {
+    type Marker = SevenMod8;
+}
+
+trait TotalSizeIsMultipleOfEightBits {
+    type Check;
+}
+
+impl TotalSizeIsMultipleOfEightBits for ZeroMod8 {
+    type Check = ();
+}
 
 fn main() {
+    require_multiple_of_eight!(7);
 }
