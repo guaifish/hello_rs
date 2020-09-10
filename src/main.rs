@@ -1,13 +1,11 @@
-use http::uri::Scheme;
-use http::Uri;
+extern crate humansize;
+use humansize::{file_size_opts as options, FileSize};
 
 fn main() {
-    let uri = "https://www.rust-lang.org/index.html"
-        .parse::<Uri>()
-        .unwrap();
+    let size = 1000;
+    println!("Size is {}", size.file_size(options::DECIMAL).unwrap());
 
-    assert_eq!(uri.scheme(), Some(&Scheme::HTTPS));
-    assert_eq!(uri.host(), Some("www.rust-lang.org"));
-    assert_eq!(uri.path(), "/index.html");
-    assert_eq!(uri.query(), None);
+    println!("Size is {}", size.file_size(options::BINARY).unwrap());
+
+    println!("Size is {}", size.file_size(options::CONVENTIONAL).unwrap());
 }
