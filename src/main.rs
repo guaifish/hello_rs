@@ -1,12 +1,9 @@
-use hello::HelloMacro;
-
-trait HelloMacro {
-    fn hello_macro();
-}
-
-#[derive(HelloMacro)]
-struct Pancakes;
+use base64::{encode, decode};
 
 fn main() {
-    Pancakes::hello_macro();
+    let a = b"hello world";
+    let b = "aGVsbG8gd29ybGQ=";
+
+    assert_eq!(encode(a), b);
+    assert_eq!(a, &decode(b).unwrap()[..]);
 }
