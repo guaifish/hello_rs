@@ -1,12 +1,13 @@
-use fnv::FnvHashMap;
+use http::uri::Scheme;
+use http::Uri;
 
 fn main() {
-    let mut map = FnvHashMap::default();
-    map.insert(1, "one");
-    map.insert(2, "two");
+    let uri = "https://www.rust-lang.org/index.html"
+        .parse::<Uri>()
+        .unwrap();
 
-    map = FnvHashMap::with_capacity_and_hasher(10, Default::default());
-    map.insert(1, "one");
-    map.insert(2, "two");
-    println!("{:?}", map);
+    assert_eq!(uri.scheme(), Some(&Scheme::HTTPS));
+    assert_eq!(uri.host(), Some("www.rust-lang.org"));
+    assert_eq!(uri.path(), "/index.html");
+    assert_eq!(uri.query(), None);
 }
