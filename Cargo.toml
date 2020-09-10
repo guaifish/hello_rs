@@ -5,4 +5,5 @@ authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
 [dependencies]
-cookie = "0.14.2"
+lazy_static = "1.4.0"
+
