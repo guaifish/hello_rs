@@ -1,22 +1,10 @@
-use backtrace;
+use bigdecimal::BigDecimal;
+use std::str::FromStr;
 
 fn main() {
-    backtrace::trace(|frame| {
-        let ip = frame.ip();
-        println!("ip: {:?}", ip);
-        let symbol_address = frame.symbol_address();
-        println!("symbol_address: {:?}", symbol_address);
+    let input = "0.8";
+    let dec = BigDecimal::from_str(&input).unwrap();
+    let float = f32::from_str(&input).unwrap();
 
-        // Resolve this instruction pointer to a symbol name
-        backtrace::resolve_frame(frame, |symbol| {
-            if let Some(name) = symbol.name() {
-                println!("name: {:?}", name);
-            }
-            if let Some(filename) = symbol.filename() {
-                println!("filename {:?}", filename);
-            }
-        });
-        println!("\n");
-        true // keep going to the next frame
-    });
+    println!("Input ({}) with 10 decimals: {} vs {})", input, dec, float);
 }

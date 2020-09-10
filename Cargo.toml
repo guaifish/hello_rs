@@ -5,4 +5,4 @@ authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
 [dependencies]
-backtrace = "0.3.50"
+bigdecimal = "0.2.0"
