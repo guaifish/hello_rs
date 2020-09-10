@@ -5,4 +5,4 @@ authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
 [dependencies]
-bumpalo = { version = "3.4.0", features = ["boxed"] }
+chrono = "0.4.15"
