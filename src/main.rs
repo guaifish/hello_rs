@@ -1,11 +1,13 @@
-extern crate humansize;
-use humansize::{file_size_opts as options, FileSize};
+#[macro_use]
+extern crate maplit;
 
 fn main() {
-    let size = 1000;
-    println!("Size is {}", size.file_size(options::DECIMAL).unwrap());
+    let map = hashmap! {
+        "a" => 1,
+        "b" => 2,
+    };
+    println!("{:?}", map);
 
-    println!("Size is {}", size.file_size(options::BINARY).unwrap());
-
-    println!("Size is {}", size.file_size(options::CONVENTIONAL).unwrap());
+    let set = hashset!{"a", "b"};
+    println!("{:?}", set);
 }
