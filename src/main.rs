@@ -1,9 +1,11 @@
+use cookie::Cookie;
+
 fn main() {
-    use chrono::prelude::*;
-
-    let utc: DateTime<Utc> = Utc::now();
-    let local: DateTime<Local> = Local::now();
-
-    println!("{}", utc);
-    println!("{}", local);
+    let cookie = Cookie::build("name", "value")
+        .domain("www.rust-lang.org")
+        .path("/")
+        .secure(true)
+        .http_only(true)
+        .finish();
+    println!("{:?}", cookie.to_string());
 }
