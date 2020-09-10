@@ -1,8 +1,12 @@
-use hello::Task;
+use hello::HelloMacro;
+
+trait HelloMacro {
+    fn hello_macro();
+}
+
+#[derive(HelloMacro)]
+struct Pancakes;
 
 fn main() {
-    let mut task = Task::new(1);
-    println!("{}", task.index);
-
-    task.index += 1;
+    Pancakes::hello_macro();
 }

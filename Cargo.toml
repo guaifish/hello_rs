@@ -3,3 +3,10 @@ name = "hello"
 version = "0.1.0"
 authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "1.0.40"
+quote = "1.0.7"

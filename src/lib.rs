@@ -1,27 +1,25 @@
-use core::ops::Deref;
+extern crate proc_macro;
 
-#[repr(C)]
-pub struct Task {
-    index: usize,
-    // other private fields
+use proc_macro::TokenStream;
+use quote::quote;
+use syn;
+
+
+
+#[proc_macro_derive(HelloMacro)]
+pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
+    let ast = syn::parse(input).unwrap();
+    impl_hello_macro(&ast)
 }
 
-impl Task {
-    pub fn new(index: usize) -> Task {
-        Task { index }
-    }
-}
-
-#[repr(C)]
-pub struct ReadOnlyTask {
-    pub index: usize,
-    // the same private fields
-}
-
-impl Deref for Task {
-    type Target = ReadOnlyTask;
-
-    fn deref(&self) -> &Self::Target {
-        unsafe { &*(self as *const Self as *const Self::Target) }
-    }
+fn impl_hello_macro(ast: &syn::DeriveInput) -> TokenStream {
+    let name = &ast.ident;
+    let gen = quote! {
+        impl HelloMacro for #name {
+            fn hello_macro() {
+                println!("Hello, Macro! My name is {}!", stringify!(#name));
+            }
+        }
+    };
+    gen.into()
 }
