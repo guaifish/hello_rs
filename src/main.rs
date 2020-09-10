@@ -1,10 +1,13 @@
-use bigdecimal::BigDecimal;
-use std::str::FromStr;
+use generic_array::{typenum::U5, ArrayLength, GenericArray};
+
+#[derive(Debug)]
+struct Foo<N: ArrayLength<i32>> {
+    data: GenericArray<i32, N>,
+}
 
 fn main() {
-    let input = "0.8";
-    let dec = BigDecimal::from_str(&input).unwrap();
-    let float = f32::from_str(&input).unwrap();
-
-    println!("Input ({}) with 10 decimals: {} vs {})", input, dec, float);
+    let foo = Foo::<U5> {
+        data: GenericArray::default(),
+    };
+    println!("{:?}", foo);
 }

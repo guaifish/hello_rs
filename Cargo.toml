@@ -5,4 +5,4 @@ authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
 [dependencies]
-bigdecimal = "0.2.0"
+generic-array = "0.14.4"
