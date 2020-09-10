@@ -1,13 +1,14 @@
-#[macro_use]
-extern crate maplit;
+#[macro_use] extern crate derivative;
+
+#[derive(Derivative)]
+#[derivative(Debug)]
+struct Foo {
+    foo: u8,
+    #[derivative(Debug = "ignore")]
+    bar: u8,
+}
 
 fn main() {
-    let map = hashmap! {
-        "a" => 1,
-        "b" => 2,
-    };
-    println!("{:?}", map);
-
-    let set = hashset!{"a", "b"};
-    println!("{:?}", set);
+    // Prints `Foo { foo: 42 }`
+    println!("{:?}", Foo { foo: 42, bar: 1 });
 }
