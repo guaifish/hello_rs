@@ -1,7 +1,7 @@
-use std::ops::Add;
-use typenum::{Integer, P3, P4};
+use const_random::const_random;
+
+const MY_RANDOM_NUMBER: u32 = const_random!(u32);
 
 fn main() {
-    type X = <P3 as Add<P4>>::Output;
-    assert_eq!(<X as Integer>::to_i32(), 7);
+    println!("{}", MY_RANDOM_NUMBER);
 }
