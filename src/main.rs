@@ -1,14 +1,24 @@
-#[macro_use] extern crate derivative;
+use getset::{CopyGetters, Getters, MutGetters, Setters};
 
-#[derive(Derivative)]
-#[derivative(Debug)]
-struct Foo {
-    foo: u8,
-    #[derivative(Debug = "ignore")]
-    bar: u8,
+#[derive(Getters, Setters, MutGetters, CopyGetters, Default)]
+pub struct Foo<T>
+where
+    T: Copy + Clone + Default,
+{
+    /// Doc comments are supported!
+    /// Multiline, even.
+    #[getset(get, set, get_mut)]
+    private: T,
+
+    /// Doc comments are supported!
+    /// Multiline, even.
+    #[getset(get_copy = "pub", set = "pub", get_mut = "pub")]
+    public: T,
 }
 
 fn main() {
-    // Prints `Foo { foo: 42 }`
-    println!("{:?}", Foo { foo: 42, bar: 1 });
+    let mut foo = Foo::default();
+    foo.set_private(1);
+    (*foo.private_mut()) += 1;
+    assert_eq!(*foo.private(), 2);
 }
