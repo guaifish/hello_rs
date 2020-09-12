@@ -1,24 +1,14 @@
-use getset::{CopyGetters, Getters, MutGetters, Setters};
-
-#[derive(Getters, Setters, MutGetters, CopyGetters, Default)]
-pub struct Foo<T>
-where
-    T: Copy + Clone + Default,
-{
-    /// Doc comments are supported!
-    /// Multiline, even.
-    #[getset(get, set, get_mut)]
-    private: T,
-
-    /// Doc comments are supported!
-    /// Multiline, even.
-    #[getset(get_copy = "pub", set = "pub", get_mut = "pub")]
-    public: T,
-}
+use std::cell::RefCell;
+use std::rc::Rc;
 
 fn main() {
-    let mut foo = Foo::default();
-    foo.set_private(1);
-    (*foo.private_mut()) += 1;
-    assert_eq!(*foo.private(), 2);
+    let shared_vec: Rc<RefCell<Vec<isize>>> =
+        Rc::new(RefCell::new(vec![1, 2, 3]));
+    let shared1 = shared_vec.clone();
+    let shared2 = shared1.clone();
+
+    shared1.borrow_mut().push(4);
+    shared2.borrow_mut().push(5);
+
+    println!("{:?}", shared_vec);
 }
