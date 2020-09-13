@@ -5,4 +5,4 @@ authors = ["guaifish <guaifish@hotmail.com>"]
 edition = "2018"
 
 [dependencies]
-deque = "0.3.2"
+fixed-vec-deque = "0.1.9"
