@@ -1,29 +1,32 @@
-use std::collections::HashMap;
-use lru::LruCache;
+use bit_vec::BitVec;
 
 fn main() {
-    let mut m = HashMap::new();
-    m.insert("apple", 3);
-    m.insert("banana", 2);
-    assert_eq!(m.get(&"apple"), Some(&3));
-    assert_eq!(m.get("banana"), Some(&2));
-    // pub fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
-    // where
-    //     K: Borrow<Q>,
-    //     Q: Hash + Eq,
+    let mut bv = BitVec::from_elem(10, false);
 
-    let mut cache = LruCache::new(2);
-    cache.put("apple", 3);
-    cache.put("banana", 2);
-    assert_eq!(cache.get(&"apple"), Some(&3));
-    // error
-    assert_eq!(cache.get("banana"), Some(&2));
-    // pub fn get<'a, Q>(&'a mut self, k: &Q) -> Option<&'a V>
-    // where
-    //     KeyRef<K>: Borrow<Q>,
-    //     Q: Hash + Eq + ?Sized,
-    // 
-    // pub struct KeyRef<K> {
-    //     k: *const K,
-    // }
+    // insert all primes less than 10
+    bv.set(2, true);
+    bv.set(3, true);
+    bv.set(5, true);
+    bv.set(7, true);
+    println!("{:?}", bv);
+    println!(
+        "total bits set to true: {}",
+        bv.iter().filter(|x| *x).count()
+    );
+
+    // flip all values in bitvector, producing non-primes less than 10
+    bv.negate();
+    println!("{:?}", bv);
+    println!(
+        "total bits set to true: {}",
+        bv.iter().filter(|x| *x).count()
+    );
+
+    // reset bitvector to empty
+    bv.clear();
+    println!("{:?}", bv);
+    println!(
+        "total bits set to true: {}",
+        bv.iter().filter(|x| *x).count()
+    );
 }
